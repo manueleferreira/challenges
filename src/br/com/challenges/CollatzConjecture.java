@@ -1,11 +1,13 @@
 package br.com.challenges;
 
-public class CollatzConjecture {
+public class CollatzConjecture 
+{
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		int numberToEvaluate = 1000000;
 		 
 		int number = identifyNumberWithLargestSequence( numberToEvaluate );
@@ -19,7 +21,8 @@ public class CollatzConjecture {
 	 * @param numberToEvaluate
 	 * @return
 	 */
-	public static int identifyNumberWithLargestSequence(int numberToEvaluate) {
+	public static int identifyNumberWithLargestSequence(int numberToEvaluate) 
+	{
 		int maxSequenceLength = 0;
 		int startingNumber = 1;
 		int MAX_VALUE = numberToEvaluate + 1;
@@ -27,10 +30,12 @@ public class CollatzConjecture {
 		numberSequenceArray[1] = 1;
 		 
 		long sequence;
-		for (int i = 2; i <= numberToEvaluate; i++) {
+		for (int i = 2; i <= numberToEvaluate; i++) 
+		{
 		    sequence = i;
 		    int increaseSequence = 0;
-		    while ( ( sequence >= 1 ) && ( sequence >= i) ) {
+		    while ( ( sequence >= 1 ) && ( sequence >= i) ) 
+		    {
 		        increaseSequence++;
 		        sequence = calculateNextSequenceNumber(sequence);
 		    }
@@ -38,7 +43,8 @@ public class CollatzConjecture {
 	    	int lastValue = numberSequenceArray[(int)sequence];
 			numberSequenceArray[i] = increaseSequence + lastValue;
 		 
-		    if (numberSequenceArray[i] > maxSequenceLength) {
+		    if (numberSequenceArray[i] > maxSequenceLength) 
+		    {
 		        maxSequenceLength = numberSequenceArray[i];
 		        startingNumber = i;
 		    }
@@ -52,7 +58,8 @@ public class CollatzConjecture {
 	 * @param sequence
 	 * @return
 	 */
-	public static long calculateNextSequenceNumber(long sequence) {
+	public static long calculateNextSequenceNumber(long sequence) 
+	{
 		if ( isEven(sequence) ) {
 		    sequence = sequence / 2;
 		} else {
@@ -67,7 +74,8 @@ public class CollatzConjecture {
 	 * @param sequence
 	 * @return
 	 */
-	public static boolean isEven(long sequence) {
+	public static boolean isEven(long sequence) 
+	{
 		boolean isEven = (sequence % 2) == 0;
 		return isEven;
 	}
