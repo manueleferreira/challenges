@@ -2,7 +2,6 @@ package br.com.challenges;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import br.com.challenges.robot.Position;
 import br.com.challenges.robot.ProcessRobotCmd;
 

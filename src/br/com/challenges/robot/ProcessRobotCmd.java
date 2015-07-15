@@ -3,8 +3,16 @@ package br.com.challenges.robot;
 public class ProcessRobotCmd {
 
 	static String directions = "NESW";
-	
-	public static Position executeCmdSequence(String cmdSequence, String[] lengthSpace,
+
+	/**
+	 * executa uma sequência de comandos
+	 * 
+	 * @param cmdSequence
+	 * @param spaceLim
+	 * @param position
+	 * @return
+	 */
+	public static Position executeCmdSequence(String cmdSequence, String[] spaceLim,
 			Position position) 
 	{
 		final char firstChar = cmdSequence.charAt(0);
@@ -12,24 +20,32 @@ public class ProcessRobotCmd {
 		{
 			for (char cmd : cmdSequence.toCharArray()) 
 			{
-				position = executeSimpleCmd(cmd, lengthSpace, position);
+				position = executeSimpleCmd(cmd, spaceLim, position);
 			}
 		}
 		else
 		{
-			position = executeTransCmd(cmdSequence, lengthSpace, position);
+			position = executeTransCmd(cmdSequence, spaceLim, position);
 		}
 		return position;
 	}
 
+	/**
+	 * executa o comando transporte
+	 * 
+	 * @param cmdSequence
+	 * @param spaceLim
+	 * @param position
+	 * @return
+	 */
 	private static Position executeTransCmd(String cmdSequence,
-			String[] lengthSpace, Position position) 
+			String[] spaceLim, Position position) 
 	{
 		final String[] trans = cmdSequence.split(" ");
 		final int newX = Integer.valueOf(trans[1]);
 		final int newY = Integer.valueOf(trans[2]);
 
-		if( validValue(newX, lengthSpace[0]) && validValue(newY, lengthSpace[1]) )
+		if( validValue(newX, spaceLim[0]) && validValue(newY, spaceLim[1]) )
 		{
 			Integer newXConvert = Integer.valueOf( newX );
 			Integer newYConvert = Integer.valueOf( newY );
@@ -45,6 +61,13 @@ public class ProcessRobotCmd {
 		return position;
 	}
 
+	/**
+	 * verifica se a nova posição é válida em relação ao limite do plano
+	 * 
+	 * @param value
+	 * @param limit
+	 * @return
+	 */
 	private static boolean validValue(int value, String limit) 
 	{
 		int intLimit = Integer.valueOf(limit);
@@ -55,7 +78,15 @@ public class ProcessRobotCmd {
 		return false;
 	}
 
-	public static Position executeSimpleCmd(char cmd, String[] lengthSpace,
+	/**
+	 * executa comandos simples de uma sequência
+	 * 
+	 * @param cmd
+	 * @param spaceLim
+	 * @param position
+	 * @return
+	 */
+	public static Position executeSimpleCmd(char cmd, String[] spaceLim,
 			Position position) 
 	{
 		if(cmd != 'M')
@@ -85,7 +116,7 @@ public class ProcessRobotCmd {
 				x--;
 			}
 			
-			if( validValue(y, lengthSpace[0]) && validValue(x, lengthSpace[1]) )
+			if( validValue(y, spaceLim[0]) && validValue(x, spaceLim[1]) )
 			{
 				position.setX(x);
 				position.setY(y);
@@ -99,6 +130,13 @@ public class ProcessRobotCmd {
 		return position;
 	}
 
+	/**
+	 * indica a nova direção baseado em uma rotação
+	 * 
+	 * @param cmd
+	 * @param actualDirection
+	 * @return
+	 */
 	public static String getNewDirection(char cmd, String actualDirection) {
 		int pos = directions.indexOf(actualDirection);
 		if( cmd == 'L' )
